@@ -1,0 +1,2 @@
+parameters:
+    stoker.randomjokes.table.randomjokes: '%core.table_prefix%randomjokes'

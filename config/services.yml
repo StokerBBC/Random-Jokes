@@ -1,0 +1,14 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    stoker.randomjokes.listener:
+        class: stoker\randomjokes\event\listener
+        arguments:
+            - '@dbal.conn'        
+            - '@user'
+            - '@config'
+            - '@template'          
+            - '%stoker.randomjokes.table.randomjokes%'           
+        tags:
+            - { name: event.listener }

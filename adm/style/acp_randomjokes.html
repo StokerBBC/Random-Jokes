@@ -1,0 +1,78 @@
+{% INCLUDE 'overall_header.html' %}
+
+<p><img src="https://img.shields.io/badge/{{ lang('ACP_RANDOMJOKES_BADGE') }}-green.svg?style=plastic" height="28" /></p>
+
+<p style="font-size:1em;">{{ lang('ACP_RANDOMJOKES_SETTINGS_EXPLAIN') ~ lang('COLON') }}<br /><a style="font-weight:bold;" href="https://phpbb3bbcodes.com/donate" target="_blank"><i class="fa fa-paypal" aria-hidden="true"></i> {{ lang('ACP_RANDOMJOKES_DONATION') }}</a><br /><a style="font-weight:bold;" href="https://phpbb3bbcodes.com/home" target="_blank"><i class="fa fa-link" aria-hidden="true"></i> {{ lang('ACP_RANDOMJOKES_MEMBER') }}</a><br /><a style="font-weight:bold;" href="https://phpbb3bbcodes.com/viewtopic.php?t=2898" target="_blank"><i class="fa fa-ticket" aria-hidden="true"></i> {{ lang('ACP_RANDOMJOKES_SUPPORT') }}</a></p>
+
+<form id="acp_randomjokes" method="post" action="{{ U_ACTION }}">
+	<fieldset>
+		<legend>{{ lang('RANDOMJOKES_CONFIG') }}</legend>
+		<dl>
+			<dt><label for="enable_randomjokes">{{ lang('RANDOMJOKES_ENABLE') ~ lang('COLON') }}</label><br /><span>{{ lang('RANDOMJOKES_ENABLE_EXPLAIN') }}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="enable_randomjokes" value="1"{% if S_RANDOMJOKES_ENABLED %} id="enable_randomjokes" checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="enable_randomjokes" value="0"{% if not S_RANDOMJOKES_ENABLED %} id="enable_randomjokes" checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="enable_randomjokes_portal">{{ lang('RANDOMJOKES_ENABLE_PORTAL') ~ lang('COLON') }}</label><br /><span>{{ lang('RANDOMJOKES_ENABLE_PORTAL_EXPLAIN') }}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="enable_randomjokes_portal" value="1"{% if S_RANDOMJOKES_ENABLED_PORTAL %} id="enable_randomjokes_portal" checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="enable_randomjokes_portal" value="0"{% if not S_RANDOMJOKES_ENABLED_PORTAL %} id="enable_randomjokes_portal" checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt><label for="enable_randomjokes_smile">{{ lang('RANDOMJOKES_ENABLE_SMILE') ~ lang('COLON') }}</label><br /><span>{{ lang('RANDOMJOKES_ENABLE_SMILE_EXPLAIN') }}</span></dt>
+			<dd>
+				<label><input type="radio" class="radio" name="enable_randomjokes_smile" value="1"{% if S_RANDOMJOKES_ENABLED_SMILE %} id="enable_randomjokes_smile" checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="enable_randomjokes_smile" value="0"{% if not S_RANDOMJOKES_ENABLED_SMILE %} id="enable_randomjokes_smile" checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+	<p class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="enable_submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+	</p>
+	{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+<form id="acp_randomjokes" method="post" action="{{ U_ACTION }}">  
+	<fieldset>
+		<legend>{% if JOKE_EDIT %}{{ lang('RANDOMJOKES_EDIT') }}{% else %}{{ lang('RANDOMJOKES_ADD') }}{% endif %}</legend>
+		<dl>
+			<dt><label for="randomjokes_text">{{ lang('RANDOMJOKES_TEXT') }}</label><br /><span>{{ lang('RANDOMJOKES_TEXT_EXPLAIN') }}</span></dt>
+			<dd><textarea id="randomjokes_text" name="randomjokes_text" type="text" required maxlength="2500" rows="6" cols="60">{% if JOKE_TEXT %}{{ JOKE_TEXT }}{% endif %}</textarea></dd>
+		</dl>
+	<p class="submit-buttons">
+		  {% if JOKE_EDIT %}<input type="hidden" name="edit" value="{{ JOKE_EDIT }}" />{% endif %}
+		  <input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		  <input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+	</p>
+	{{ S_FORM_TOKEN }}
+	</fieldset>
+</form>
+
+<table class="table1 zebra-table" id="down">
+	<thead>
+	<tr>
+		<th style="text-align:center;">{{ lang('ID') }}</th>	
+		<th>{{ lang('RANDOMJOKES_TEXT_TEXT') }}</th>
+		<th style="text-align: center;">{{ lang('ACTION') }}</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for randomjokes in loops.randomjokes %}
+		<tr>
+		    <td width="30px" style="text-align: center;">{{ randomjokes.JOKE_ID }}</td>
+            <td>{{ randomjokes.JOKE_TEXT }}</td>			
+			<td class="actions"><a href="{{ randomjokes.U_EDIT }}">{{ ICON_EDIT }}</a> <a href="{{ randomjokes.U_DELETE }}" data-ajax="row_delete">{{ ICON_DELETE }}</a></td>
+		</tr>
+	{% else %}
+		<tr class="row3">
+			<td colspan="3">{{ lang('ACP_NO_RANDOMJOKES') }}</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+
+{% INCLUDE 'overall_footer.html' %}

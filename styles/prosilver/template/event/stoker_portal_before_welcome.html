@@ -1,0 +1,23 @@
+{% if S_RANDOMJOKES_ENABLED_PORTAL and randomjokes and not S_IS_BOT %}
+<div class="forabg"  role="row">
+	<div class="inner">
+		<ul class="topiclist">
+			<li class="header">
+				<dl class="row-item">
+					<dt><div class="list-inner">{{ lang('RANDOM_JOKES_HEAD') }}</div></dt>
+					<dd></dd>
+				</dl>
+			</li>
+		</ul>
+		<div class="bg1">
+			<div class="inner joke-container{% if S_RANDOMJOKES_ENABLED_SMILE %} joke-container-smile{% endif %}">
+				<div class="inner joke-container-inner">
+				{% for randomjokes in randomjokes %}
+				<p>{{ randomjokes.JOKES_TEXT }}</p>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}

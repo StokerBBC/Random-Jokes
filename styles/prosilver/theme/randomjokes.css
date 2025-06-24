@@ -1,0 +1,36 @@
+.joke-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	min-height: 60px;
+}
+.joke-container-smile {
+	padding: 0 80px;
+	background-repeat: no-repeat;
+	background-position: left 10px center, right 10px center;
+	background-image: url("./images/randomjokes.png"), url("./images/randomjokes.png");
+	background-size: 69px 50px;
+}
+@media (max-width: 700px) {
+	.joke-container-smile {
+	background-image: none;
+	padding: 0;
+	}
+}
+.joke-container-inner { 
+	text-align: center;
+	padding: 2px 6px;
+}
+.joke-container-inner p { 
+	margin-bottom: 0px;
+	font-size: 1.3em;
+}
+.joke-image-left {
+	position: absolute;
+	left: 10px;
+}
+.joke-image-right {
+	position: absolute;
+	right: 10px;
+}
